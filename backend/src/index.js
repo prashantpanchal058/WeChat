@@ -4,7 +4,6 @@ var cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv')
 
-connectToMongo();
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
@@ -71,3 +70,14 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
     });
 });
+
+(async () => {
+    try {
+        await connectToMongo();
+        server.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error("Startup error:", err);
+    }
+})();

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const mongoURI = "mongodb://localhost:27017/wechat";
+const mongoURI = "mongodb+srv://prashantpanchal058_db_user:pWKSsslkwtew2XVL@cluster0.vzkusa2.mongodb.net/?appName=Cluster0/weChat";
 
 const connectToMongo = ()=>{
     mongoose.connect(mongoURI)
