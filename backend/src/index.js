@@ -29,7 +29,7 @@ app.use("/status", require("./routes/status"))
 
 app.use(express.static(path.join(__dirnameResolved, "frontend", "dist")));
 
-app.get(/^(?!\/api).*/ , (_, res) => {
+app.get(/^(?!\/api).*/  , (_, res) => {
     res.sendFile(
         path.join(__dirnameResolved, "frontend", "dist", "index.html")
     );
