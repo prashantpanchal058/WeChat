@@ -74,7 +74,7 @@ io.on("connection", (socket) => {
 (async () => {
     try {
         await connectToMongo();
-        server.listen(PORT, () => {
+        server.listen(port, () => {
             console.log(`Server running on port ${PORT}`);
         });
     } catch (err) {
