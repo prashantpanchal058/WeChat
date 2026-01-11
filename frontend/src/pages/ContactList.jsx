@@ -105,7 +105,7 @@ const ContactList = () => {
                                 ${id === chat._id ? "bg-blue-200" : ""}`}
                             >
                                 <img
-                                    src={chat.pic || avatarIcon}
+                                    src={`/maintab/chat/${chat.pic}` || avatarIcon}
                                     alt={avatarIcon}
                                     className={`w-12 h-12 ${chat.pic? "": "p-2"} rounded-full bg-blue-200 object-cover`}
                                 />
