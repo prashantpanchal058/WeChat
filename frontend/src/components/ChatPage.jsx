@@ -203,6 +203,7 @@ const ChatPage = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     </button>}
                     <img
                         src={activeChat.pic || avatarIcon}
+                        alt={avatarIcon}
                         className={`w-12 h-12 ${activeChat.pic ? "" : "p-2"} rounded-full bg-blue-200 object-cover`}
                     />
                     <div>

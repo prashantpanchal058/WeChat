@@ -106,7 +106,7 @@ const ContactList = () => {
                             >
                                 <img
                                     src={chat.pic || avatarIcon}
-                                    alt={chat.name}
+                                    alt={avatarIcon}
                                     className={`w-12 h-12 ${chat.pic? "": "p-2"} rounded-full bg-blue-200 object-cover`}
                                 />
 
