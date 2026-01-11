@@ -2,7 +2,7 @@ import statusContext from "./statusContext";
 import { useState, useCallback, useMemo } from "react";
 
 const StateStatus = ({ children }) => {
-    const host = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const host = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
     const [status, setStatus] = useState([]);
 
     // Fetch messages

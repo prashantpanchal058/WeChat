@@ -17,7 +17,7 @@ const Signup = () => {
 
     const navigate = useNavigate();
 
-    const host = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const host = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });

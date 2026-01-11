@@ -7,7 +7,7 @@ const ContactList = () => {
     const [contactLists, setContactList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const host = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const host = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const { id } = useParams();
     const navigate = useNavigate();

@@ -11,7 +11,7 @@ const port = process.env.PORT || 8000;
 const __dirnameResolved = path.resolve();
 
 app.use(cors({
-    origin: [ process.env.FRONTEND_URL || "http://localhost:5173"],
+    origin: [ process.env.FRONTEND_URL || "https://wechat-jnge.onrender.com"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
 }));
 
@@ -40,7 +40,7 @@ const server = app.listen(port, () => {
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: [ process.env.FRONTEND_URL || "http://localhost:5173"],
+        origin: [ process.env.FRONTEND_URL || "https://wechat-jnge.onrender.com"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         credentials: true   // add this
     }

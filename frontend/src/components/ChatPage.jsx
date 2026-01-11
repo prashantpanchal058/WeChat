@@ -18,7 +18,7 @@ const ChatPage = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const typingTimeoutRef = useRef(null);
     const isTypingRef = useRef(false);
 
-    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const { messages = [], getChats, sendChat, appendMessage } =
         useContext(messageContext);

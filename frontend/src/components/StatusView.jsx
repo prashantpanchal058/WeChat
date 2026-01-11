@@ -6,7 +6,7 @@ const StatusView = ({ activeStatus }) => {
     const [index, setIndex] = useState(0);
     const seenRef = useRef(new Set());
 
-    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "http://localhost:8000"
+    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com"
 
     // ✅ SAFE: this runs every render
     const currentStatus = activeStatus?.statuses?.[index];

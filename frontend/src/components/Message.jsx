@@ -1,6 +1,6 @@
 const Message = ({ text, type, image, createdAt }) => {
 
-    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
     const isSent = type === "sent";
 
     const isLocalImage = image?.startsWith("blob:");
@@ -9,7 +9,7 @@ const Message = ({ text, type, image, createdAt }) => {
     const imageSrc = image
         ? isLocalImage || isRemoteImage
             ? image
-            : `http://localhost:8000${image}`
+            : `https://wechat-jnge.onrender.com${image}`
         : null;
 
     const formatTime = (date) => {

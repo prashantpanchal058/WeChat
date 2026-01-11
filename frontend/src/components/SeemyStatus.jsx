@@ -5,7 +5,7 @@ import statusContext from "../context/status/statusContext";
 const SeemyStatus = ({ activeStatus = [] }) => {
     const { deleteStatus } = useContext(statusContext);
     
-    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const ENDPOINT = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const [statuses, setStatuses] = useState([]);
     const [index, setIndex] = useState(0);

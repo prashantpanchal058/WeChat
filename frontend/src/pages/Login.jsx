@@ -7,7 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const host = import.meta.env.VITE_ENDPOINT || "http://localhost:8000";
+    const host = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const navigate = useNavigate();
 
