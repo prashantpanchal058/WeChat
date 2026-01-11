@@ -35,7 +35,7 @@ const Signup = () => {
         formData.append("email", form.email);
         formData.append("password", form.password);
         if (pic) formData.append("pic", pic);
-
+        
         try {
             const response = await fetch(`${host}/auth/createuser`, {
                 method: 'POST',
@@ -43,8 +43,6 @@ const Signup = () => {
             });
 
             const json = await response.json()
-
-            console.log(json)
 
             if (json.success) {
                 localStorage.setItem('token', json.authtoken);
