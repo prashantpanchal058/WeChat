@@ -15,7 +15,7 @@ const ContactList = () => {
     /* ================= RESPONSIVE SIDEBAR ================= */
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 568) {
                 setIsSidebarOpen(false); // mobile
             } else {
                 setIsSidebarOpen(true); // desktop
