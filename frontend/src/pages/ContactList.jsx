@@ -69,13 +69,15 @@ const ContactList = () => {
             {isSidebarOpen && (
                 <section
                     className="
-                        bg-blue-300 flex flex-col
-                        w-full md:w-96
+                    bg-blue-300 flex flex-col
+                        w-[85%] sm:w-80 md:w-96
                         fixed md:relative
-                        inset-0 md:inset-auto
+                        inset-y-0 left-0
+                        md:inset-auto
                         z-50 md:z-auto
-                    "
+                        "
                 >
+
                     {/* Search */}
                     <div className="p-5 flex gap-2">
                         <input
@@ -107,7 +109,7 @@ const ContactList = () => {
                                 <img
                                     src={chat.pic || avatarIcon}
                                     alt={avatarIcon}
-                                    className={`w-12 h-12 ${chat.pic? "": "p-2"} rounded-full bg-blue-200 object-cover`}
+                                    className={`w-12 h-12 ${chat.pic ? "" : "p-2"} rounded-full bg-blue-200 object-cover`}
                                 />
 
                                 <div className="flex-1">
