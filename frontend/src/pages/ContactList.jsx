@@ -110,13 +110,6 @@ const ContactList = () => {
                                     className={`w-12 h-12 ${chat.pic? "": "p-2"} rounded-full bg-blue-200 object-cover`}
                                 />
 
-                                <div className="flex-1">
-                                    <p className="font-medium">{chat.name}</p>
-                                    <p className="text-sm text-gray-600 truncate">
-                                        {chat.lastMessage || "No messages yet"}
-                                    </p>
-                                </div>
-
                                 {chat.online && (
                                     <span className="h-2 w-2 bg-green-500 rounded-full" />
                                 )}
