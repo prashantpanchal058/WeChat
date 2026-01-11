@@ -49,7 +49,10 @@ const Message = ({ text, type, image, createdAt }) => {
                 )}
 
                 {text && (
-                    <div className="font-medium leading-snug">
+                    <div className="max-w-[70vw]
+                            sm:max-w-[320px]
+                            md:max-w-120
+                            lg:max-w-120 font-medium leading-snug">
                         {text}
                     </div>
                 )}
