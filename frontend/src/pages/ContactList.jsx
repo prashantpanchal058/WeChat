@@ -6,10 +6,13 @@ import { useNavigate, useParams } from "react-router-dom";
 const ContactList = () => {
     const [contactLists, setContactList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(
+        window.innerWidth >= 768
+    );
 
     const host =
-        import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
+        import.meta.env.VITE_ENDPOINT ||
+        "https://wechat-jnge.onrender.com";
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -17,10 +20,9 @@ const ContactList = () => {
     /* ================= RESPONSIVE SIDEBAR ================= */
     useEffect(() => {
         const handleResize = () => {
-            setIsSidebarOpen(window.innerWidth >= 568);
+            setIsSidebarOpen(window.innerWidth >= 768);
         };
 
-        handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
@@ -29,12 +31,16 @@ const ContactList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                if (!localStorage.getItem("token")) return;
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    setLoading(false);
+                    return;
+                }
 
                 const response = await fetch(`${host}/auth/getusers`, {
                     headers: {
                         "Content-Type": "application/json",
-                        "auth-token": localStorage.getItem("token"),
+                        "auth-token": token,
                     },
                 });
 
@@ -48,7 +54,7 @@ const ContactList = () => {
         };
 
         fetchUsers();
-    }, []);
+    }, [host]);
 
     if (loading) {
         return (
@@ -59,20 +65,39 @@ const ContactList = () => {
     }
 
     return (
-        <div className="h-screen flex bg-gray-100 overflow-hidden">
+        <div className="h-screen flex bg-gray-100 relative overflow-hidden">
+            {/* ================= MOBILE MENU BUTTON ================= */}
+            {!isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="md:hidden absolute top-4 left-4 z-50 bg-blue-500 text-white px-3 py-2 rounded-lg shadow"
+                >
+                    ☰
+                </button>
+            )}
+
+            {/* ================= BACKDROP (MOBILE) ================= */}
+            {isSidebarOpen && window.innerWidth < 768 && (
+                <div
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="fixed inset-0 bg-black/30 z-40 md:hidden"
+                />
+            )}
+
             {/* ================= SIDEBAR ================= */}
             {isSidebarOpen && (
                 <section
                     className="
                         bg-blue-300 flex flex-col
-                        w-[70%] sm:w-46 md:w-80 lg:w-96
-                        md:relative
+                        w-[75%] sm:w-56 md:w-96
+                        fixed md:relative
                         inset-y-0 left-0
-                        transition-all duration-300
+                        z-50 md:z-auto
+                        transition-transform duration-300
                     "
                 >
                     {/* Search */}
-                    <div className="p-4">
+                    <div className="p-5">
                         <input
                             placeholder="Search chats"
                             className="w-full px-3 py-2 rounded bg-blue-100 outline-none"
@@ -80,7 +105,7 @@ const ContactList = () => {
                     </div>
 
                     {/* Contact List */}
-                    <div className="flex-1 overflow-y-auto px-2 scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-blue-200">
+                    <div className="flex-1 overflow-y-auto mx-3 scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-blue-200">
                         {contactLists.length === 0 && (
                             <p className="text-center text-gray-600 mt-10">
                                 No contacts found
@@ -96,23 +121,23 @@ const ContactList = () => {
                                         setIsSidebarOpen(false);
                                     }
                                 }}
-                                className={`
-                                    px-4 py-3 mb-1 h-20 cursor-pointer rounded-3xl
-                                    flex items-center gap-3
-                                    hover:bg-blue-200
-                                    ${id === chat._id ? "bg-blue-200" : ""}
-                                `}
+                                className={`px-4 py-3 mb-1 h-20 cursor-pointer rounded-3xl flex items-center gap-3 hover:bg-blue-200
+                                ${
+                                    id === chat._id
+                                        ? "bg-blue-200"
+                                        : ""
+                                }`}
                             >
                                 <img
                                     src={chat.pic || avatarIcon}
                                     alt="avatar"
-                                    className={`w-12 h-12 rounded-full object-cover bg-blue-200 ${
+                                    className={`w-12 h-12 ${
                                         chat.pic ? "" : "p-2"
-                                    }`}
+                                    } rounded-full bg-blue-200 object-cover`}
                                 />
 
                                 <div className="flex-1">
-                                    <p className="font-medium truncate">
+                                    <p className="font-medium">
                                         {chat.name}
                                     </p>
                                 </div>
@@ -127,12 +152,10 @@ const ContactList = () => {
             )}
 
             {/* ================= CHAT PAGE ================= */}
-            <div className="flex-1">
-                <ChatPage
-                    isSidebarOpen={isSidebarOpen}
-                    setIsSidebarOpen={setIsSidebarOpen}
-                />
-            </div>
+            <ChatPage
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+            />
         </div>
     );
 };
