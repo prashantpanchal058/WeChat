@@ -7,7 +7,9 @@ const ContactList = () => {
     const [contactLists, setContactList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const host = import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
+
+    const host =
+        import.meta.env.VITE_ENDPOINT || "https://wechat-jnge.onrender.com";
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -15,11 +17,7 @@ const ContactList = () => {
     /* ================= RESPONSIVE SIDEBAR ================= */
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 568) {
-                setIsSidebarOpen(false); // mobile
-            } else {
-                setIsSidebarOpen(true); // desktop
-            }
+            setIsSidebarOpen(window.innerWidth >= 768);
         };
 
         handleResize();
@@ -33,15 +31,12 @@ const ContactList = () => {
             try {
                 if (!localStorage.getItem("token")) return;
 
-                const response = await fetch(
-                    `${host}/auth/getusers`,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "auth-token": localStorage.getItem("token"),
-                        },
-                    }
-                );
+                const response = await fetch(`${host}/auth/getusers`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("token"),
+                    },
+                });
 
                 const json = await response.json();
                 setContactList(json);
@@ -64,21 +59,20 @@ const ContactList = () => {
     }
 
     return (
-        <div className="h-screen flex bg-gray-100 relative overflow-hidden">
+        <div className="h-screen flex bg-gray-100 overflow-hidden">
             {/* ================= SIDEBAR ================= */}
             {isSidebarOpen && (
                 <section
                     className="
-                    bg-blue-300 flex flex-col
-                        w-[75%] sm:w-60 md:w-96
+                        bg-blue-300 flex flex-col
+                        w-[70%] sm:w-56 md:w-80 lg:w-96
                         fixed md:relative
                         inset-y-0 left-0
-                        md:inset-auto
-                        "
+                        transition-all duration-300
+                    "
                 >
-
                     {/* Search */}
-                    <div className="p-5 flex gap-2">
+                    <div className="p-4">
                         <input
                             placeholder="Search chats"
                             className="w-full px-3 py-2 rounded bg-blue-100 outline-none"
@@ -86,7 +80,7 @@ const ContactList = () => {
                     </div>
 
                     {/* Contact List */}
-                    <div className="flex-1 overflow-y-auto mx-3 scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-blue-200">
+                    <div className="flex-1 overflow-y-auto px-2 scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-blue-200">
                         {contactLists.length === 0 && (
                             <p className="text-center text-gray-600 mt-10">
                                 No contacts found
@@ -102,17 +96,25 @@ const ContactList = () => {
                                         setIsSidebarOpen(false);
                                     }
                                 }}
-                                className={`px-4 py-3 mb-1 h-20 cursor-pointer rounded-3xl flex items-center gap-3 hover:bg-blue-200
-                                ${id === chat._id ? "bg-blue-200" : ""}`}
+                                className={`
+                                    px-4 py-3 mb-1 h-20 cursor-pointer rounded-3xl
+                                    flex items-center gap-3
+                                    hover:bg-blue-200
+                                    ${id === chat._id ? "bg-blue-200" : ""}
+                                `}
                             >
                                 <img
                                     src={chat.pic || avatarIcon}
-                                    alt={avatarIcon}
-                                    className={`w-12 h-12 ${chat.pic ? "" : "p-2"} rounded-full bg-blue-200 object-cover`}
+                                    alt="avatar"
+                                    className={`w-12 h-12 rounded-full object-cover bg-blue-200 ${
+                                        chat.pic ? "" : "p-2"
+                                    }`}
                                 />
 
                                 <div className="flex-1">
-                                    <p className="font-medium">{chat.name}</p>
+                                    <p className="font-medium truncate">
+                                        {chat.name}
+                                    </p>
                                 </div>
 
                                 {chat.online && (
@@ -125,10 +127,12 @@ const ContactList = () => {
             )}
 
             {/* ================= CHAT PAGE ================= */}
-            <ChatPage
-                isSidebarOpen={isSidebarOpen}
-                setIsSidebarOpen={setIsSidebarOpen}
-            />
+            <div className="flex-1">
+                <ChatPage
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
+            </div>
         </div>
     );
 };
