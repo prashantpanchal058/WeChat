@@ -70,7 +70,7 @@ const ContactList = () => {
                 <section
                     className="
                     bg-blue-300 flex flex-col
-                        w-[75%] sm:w-40 md:w-96
+                        w-[75%] sm:w-60 md:w-96
                         fixed md:relative
                         inset-y-0 left-0
                         md:inset-auto
