@@ -74,7 +74,6 @@ const ContactList = () => {
                         fixed md:relative
                         inset-y-0 left-0
                         md:inset-auto
-                        md:z-auto
                         "
                 >
 
