@@ -66,7 +66,7 @@ const ContactList = () => {
                     className="
                         bg-blue-300 flex flex-col
                         w-[70%] sm:w-46 md:w-80 lg:w-96
-                        fixed md:relative
+                        md:relative
                         inset-y-0 left-0
                         transition-all duration-300
                     "
